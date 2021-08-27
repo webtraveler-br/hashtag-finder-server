@@ -19,7 +19,7 @@ class CreateTweetsTable extends Migration
             $table->bigInteger('tweet_id');
             $table->bigInteger('author_id');
             $table->dateTimeTz('created_at');
-            $table->string('text', 300);
+            $table->string('text', 500);
         });
     }
 

@@ -9,6 +9,10 @@ class Hashtag extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'hashtag',
+    ];
+
     public function tweets()
     {
         return $this->hasMany(Tweet::class);
