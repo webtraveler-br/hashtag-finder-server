@@ -14,6 +14,8 @@ class Tweet extends Model
     protected $fillable = [
         'hashtag_id',
         'author_id',
+        'name',
+        'username',
         'created_at',
         'tweet_id',
         'text'

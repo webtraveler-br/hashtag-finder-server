@@ -18,6 +18,8 @@ class CreateTweetsTable extends Migration
             $table->foreignId('hashtag_id')->constrained();
             $table->bigInteger('tweet_id');
             $table->bigInteger('author_id');
+            $table->string('name', 60);
+            $table->string('username', 20);
             $table->dateTimeTz('created_at');
             $table->string('text', 500);
         });

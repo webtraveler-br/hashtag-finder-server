@@ -30,7 +30,7 @@ class HashtagController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validateWithBag('post', [
-            'hashtag' => ['required', 'string', 'max:50'],
+            'hashtag' => ['required', 'string', 'max:50', 'alpha_dash'],
         ]);
 
         $token = \config('twitter.bearer_token');
@@ -53,15 +53,26 @@ class HashtagController extends Controller
         }
 
         $tweets = $response->json()['data'];
+        $users = $response->json()['includes']['users'];
 
         foreach ($tweets as &$value) {
             $tweet = Tweet::where('tweet_id', $value['id'])
             ->where('hashtag_id', $hashtag->id)
             ->first();
+            
+            foreach ($users as $user) {
+                if($user['id'] === $value['author_id']){
+                    $value['name'] = $user['name'];
+                    $value['username'] = $user['username'];
+                    break;
+                }
+            }
 
             $value = [
                 'hashtag_id' => $hashtag->id,
                 'author_id' => $value['author_id'],
+                'name' => $value['name'],
+                'username' => $value['username'],
                 'created_at' => Tweet::correctDateTime($value['created_at']),
                 "tweet_id" => $value['id'],
                 "text" => $value['text']
