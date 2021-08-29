@@ -18,7 +18,8 @@ class HashtagController extends Controller
      */
     public function index()
     {
-        //
+        $latest = Hashtag::latest('updated_at')->get()->chunk(10);
+        return response()->json($latest[0]);
     }
 
     /**

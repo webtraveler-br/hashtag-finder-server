@@ -15,4 +15,4 @@ use App\Http\Controllers\HashtagController;
 |
 */
 
-Route::apiResource('search', HashtagController::class)->only('store');
+Route::apiResource('search', HashtagController::class)->only('store', 'index');
